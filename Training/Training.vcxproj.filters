@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="DataSet.cpp" />
+    <ClCompile Include="GetGradient_FiniteDifferences.cpp" />
+    <ClCompile Include="GetGradient_DualNumbers.cpp" />
+    <ClCompile Include="GetGradient_Backprop.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DataSet.h" />
+    <ClInclude Include="NN.h" />
+    <ClInclude Include="..\stb\stb_image.h">
+      <Filter>stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stb\stb_image_write.h">
+      <Filter>stb</Filter>
+    </ClInclude>
+    <ClInclude Include="StackPoolAllocator.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="DualNumber.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="stb">
+      <UniqueIdentifier>{a315bce1-e785-4bc7-b167-040582fe7f98}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mnist\private\dxutils.cpp">
+      <Filter>mnist\private</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\backends\imgui_impl_dx12.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\backends\imgui_impl_win32.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="mnist\private\shadercompiler.cpp">
+      <Filter>mnist\private</Filter>
+    </ClCompile>
+    <ClCompile Include="mnist\private\technique.cpp">
+      <Filter>mnist\private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mnist\private\dxutils.h">
+      <Filter>mnist\private</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\private\shadercompiler.h">
+      <Filter>mnist\private</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\private\technique.h">
+      <Filter>mnist\private</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\public\technique.h">
+      <Filter>mnist\public</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\public\imgui.h">
+      <Filter>mnist\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stb\stb_image.h">
+      <Filter>stb</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{7143353a-89ef-47ff-a90a-5c25aa3f747e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mnist">
+      <UniqueIdentifier>{c00a7547-2b89-4703-9388-5d02871f52a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mnist\private">
+      <UniqueIdentifier>{0b3e28a3-1922-4e65-9508-c65d44b38ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mnist\public">
+      <UniqueIdentifier>{74cb452f-ec0c-45d4-b107-46e7b9fec413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mnist\shaders">
+      <UniqueIdentifier>{5b06f838-eb45-4e0b-a445-ea8638ccc919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stb">
+      <UniqueIdentifier>{3ee28b1b-40ee-4855-acf6-5fbec8bbdfa7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mnist\shaders\CalculateExtents.hlsl">
+      <Filter>mnist\shaders</Filter>
+    </None>
+    <None Include="mnist\shaders\draw.hlsl">
+      <Filter>mnist\shaders</Filter>
+    </None>
+    <None Include="mnist\shaders\HiddenLayer.hlsl">
+      <Filter>mnist\shaders</Filter>
+    </None>
+    <None Include="mnist\shaders\OutputLayer.hlsl">
+      <Filter>mnist\shaders</Filter>
+    </None>
+    <None Include="mnist\shaders\Presentation.hlsl">
+      <Filter>mnist\shaders</Filter>
+    </None>
+    <None Include="mnist\shaders\shrink.hlsl">
+      <Filter>mnist\shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

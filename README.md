@@ -1,6 +1,8 @@
 # CPPMLBasics
 
-The code repo to go with the blog post https://www.ea.com/seed/news/machine-learning-game-devs-part-1
+The code repo to go with the blog posts:
+1. https://www.ea.com/seed/news/machine-learning-game-devs-part-1
+2. https://www.ea.com/seed/news/machine-learning-game-devs-part-2
 
 The `Data` folder contains the mnist hand drawn digits in their source format. Executing the `Training` project will extract those images into pngs.
 
@@ -17,4 +19,4 @@ The `Exercises` folder contains the exercises that go along with the article.
 We are a cross-disciplinary team within EA Worldwide Studios.<br>
 Our mission is to explore, build and help define the future of interactive entertainment.</p>
 
-This code accompanies an article written by Alan Wolfe (<a href="https://blog.demofox.org/">blog.demofox.org</a>) at https://www.ea.com/seed/news/machine-learning-game-devs-part-1
+This code accompanies articles written by Alan Wolfe (<a href="https://blog.demofox.org/">blog.demofox.org</a>)

@@ -3,6 +3,7 @@
 The code repo to go with the blog posts:
 1. https://www.ea.com/seed/news/machine-learning-game-devs-part-1
 2. https://www.ea.com/seed/news/machine-learning-game-devs-part-2
+3. https://www.ea.com/seed/news/machine-learning-game-devs-part-3
 
 The `Data` folder contains the mnist hand drawn digits in their source format. Executing the `Training` project will extract those images into pngs.
 

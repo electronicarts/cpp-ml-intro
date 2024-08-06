@@ -1,9 +1,10 @@
 # CPPMLBasics
 
-The code repo to go with the blog posts:
-1. https://www.ea.com/seed/news/machine-learning-game-devs-part-1
-2. https://www.ea.com/seed/news/machine-learning-game-devs-part-2
-3. https://www.ea.com/seed/news/machine-learning-game-devs-part-3
+The code repo to go with the blog posts and YouTube video:
+1. Blog Part I: https://www.ea.com/seed/news/machine-learning-game-devs-part-1
+2. Blog Part II: https://www.ea.com/seed/news/machine-learning-game-devs-part-2
+3. Blog Part III: https://www.ea.com/seed/news/machine-learning-game-devs-part-3
+4. All 3 parts in one video: https://www.youtube.com/watch?v=sTAqWRsEiy0
 
 The `Data` folder contains the mnist hand drawn digits in their source format. Executing the `Training` project will extract those images into pngs.
 

@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mnist\private\dxutils.cpp">
-      <Filter>mnist\private</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -26,31 +23,85 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="mnist\private\shadercompiler.cpp">
-      <Filter>mnist\private</Filter>
-    </ClCompile>
     <ClCompile Include="mnist\private\technique.cpp">
       <Filter>mnist\private</Filter>
     </ClCompile>
+    <ClCompile Include="mnist\DX12Utils\CompileShaders_dxc.cpp">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="mnist\DX12Utils\CompileShaders_fxc.cpp">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="mnist\DX12Utils\dxutils.cpp">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="mnist\DX12Utils\FileCache.cpp">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="mnist\DX12Utils\TextureCache.cpp">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="mnist\DX12Utils\tinyexr\deps\miniz\miniz.c">
+      <Filter>mnist\DX12Utils\tinyexr\deps\miniz</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mnist\private\dxutils.h">
-      <Filter>mnist\private</Filter>
-    </ClInclude>
-    <ClInclude Include="mnist\private\shadercompiler.h">
-      <Filter>mnist\private</Filter>
-    </ClInclude>
-    <ClInclude Include="mnist\private\technique.h">
-      <Filter>mnist\private</Filter>
-    </ClInclude>
-    <ClInclude Include="mnist\public\technique.h">
+    <ClInclude Include="mnist\public\all.h">
       <Filter>mnist\public</Filter>
     </ClInclude>
     <ClInclude Include="mnist\public\imgui.h">
       <Filter>mnist\public</Filter>
     </ClInclude>
-    <ClInclude Include="..\stb\stb_image.h">
-      <Filter>stb</Filter>
+    <ClInclude Include="mnist\public\pythoninterface.h">
+      <Filter>mnist\public</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\public\technique.h">
+      <Filter>mnist\public</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\private\technique.h">
+      <Filter>mnist\private</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\CompileShaders.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\DelayedReleaseTracker.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\dxutils.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\FileCache.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\HeapAllocationTracker.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\logfn.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\ParseCSV.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\ReadbackHelper.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\SRGB.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\TextureCache.h">
+      <Filter>mnist\DX12Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\stb\stb_image.h">
+      <Filter>mnist\DX12Utils\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\stb\stb_image_write.h">
+      <Filter>mnist\DX12Utils\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\tinyexr\tinyexr.h">
+      <Filter>mnist\DX12Utils\tinyexr</Filter>
+    </ClInclude>
+    <ClInclude Include="mnist\DX12Utils\tinyexr\deps\miniz\miniz.h">
+      <Filter>mnist\DX12Utils\tinyexr\deps\miniz</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -69,8 +120,20 @@
     <Filter Include="mnist\shaders">
       <UniqueIdentifier>{5b06f838-eb45-4e0b-a445-ea8638ccc919}</UniqueIdentifier>
     </Filter>
-    <Filter Include="stb">
-      <UniqueIdentifier>{3ee28b1b-40ee-4855-acf6-5fbec8bbdfa7}</UniqueIdentifier>
+    <Filter Include="mnist\DX12Utils">
+      <UniqueIdentifier>{ff0e1c52-a8a7-47b5-9e9c-a7c14673cc8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mnist\DX12Utils\stb">
+      <UniqueIdentifier>{c49b5917-47d2-442d-86e3-7429ebfd0ac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mnist\DX12Utils\tinyexr">
+      <UniqueIdentifier>{48ef629a-d601-4321-bb81-5486635b3e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mnist\DX12Utils\tinyexr\deps">
+      <UniqueIdentifier>{066e23ac-5839-4b47-9a06-ee13858ba555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mnist\DX12Utils\tinyexr\deps\miniz">
+      <UniqueIdentifier>{92005e30-4bbe-4bea-96fb-0fd1dc33a900}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

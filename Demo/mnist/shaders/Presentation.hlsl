@@ -5,10 +5,10 @@
 
 struct Struct__PresentationCB
 {
-    float PenSize;
-    float3 _padding0;
     float4 MouseState;
+    float PenSize;
     uint UseImportedImage;
+    float2 _padding0;
 };
 
 Texture2D<float> DrawCanvas : register(t0);
@@ -27,10 +27,13 @@ Texture2D<float> _loadedTexture_7 : register(t11);
 Texture2D<float> _loadedTexture_8 : register(t12);
 Texture2D<float> _loadedTexture_9 : register(t13);
 Texture2D<float> _loadedTexture_10 : register(t14);
-ConstantBuffer<Struct__PresentationCB> _cb : register(b0);
+ConstantBuffer<Struct__PresentationCB> _PresentationCB : register(b0);
+
+#line 1
 
 
 [numthreads(8, 8, 1)]
+#line 3
 void Presentation(uint3 DTid : SV_DispatchThreadID)
 {
     const int c_borderSize = 3;
@@ -63,10 +66,10 @@ void Presentation(uint3 DTid : SV_DispatchThreadID)
         int2 relPos = int2(DTid.xy) - c_drawPanelPos;
         if (relPos.x >= 0 && relPos.y >= 0 && relPos.x < c_drawPanelSize.x && relPos.y < c_drawPanelSize.y)
         {
-            float4 mouse = _cb.MouseState;
+            float4 mouse = _PresentationCB.MouseState;
             float3 color;
 
-            if (!_cb.UseImportedImage)
+            if (!_PresentationCB.UseImportedImage)
             {
                 color = float3(0.0f, DrawCanvas[relPos], 0.0f);
             }
@@ -80,7 +83,7 @@ void Presentation(uint3 DTid : SV_DispatchThreadID)
                 color = float3(value, value, 0.0f);
             }
 
-            if (length(mouse.xy - float2(DTid.xy)) < _cb.PenSize)
+            if (length(mouse.xy - float2(DTid.xy)) < _PresentationCB.PenSize)
                 color = lerp(color, c_mouseCursorColor.rgb, c_mouseCursorColor.aaa);
 
             PresentationCanvas[DTid.xy] = float4(color, 1.0f);
@@ -175,16 +178,16 @@ void Presentation(uint3 DTid : SV_DispatchThreadID)
                 float alpha = 0.0f;
                 switch(index)
                 {
-                    case 0: alpha = _loadedTexture_0[relPos]; break;
-                    case 1: alpha = _loadedTexture_1[relPos]; break;
-                    case 2: alpha = _loadedTexture_2[relPos]; break;
-                    case 3: alpha = _loadedTexture_3[relPos]; break;
-                    case 4: alpha = _loadedTexture_4[relPos]; break;
-                    case 5: alpha = _loadedTexture_5[relPos]; break;
-                    case 6: alpha = _loadedTexture_6[relPos]; break;
-                    case 7: alpha = _loadedTexture_7[relPos]; break;
-                    case 8: alpha = _loadedTexture_8[relPos]; break;
-                    case 9: alpha = _loadedTexture_9[relPos]; break;
+                    case 0: alpha = _loadedTexture_0[relPos].r; break;
+                    case 1: alpha = _loadedTexture_1[relPos].r; break;
+                    case 2: alpha = _loadedTexture_2[relPos].r; break;
+                    case 3: alpha = _loadedTexture_3[relPos].r; break;
+                    case 4: alpha = _loadedTexture_4[relPos].r; break;
+                    case 5: alpha = _loadedTexture_5[relPos].r; break;
+                    case 6: alpha = _loadedTexture_6[relPos].r; break;
+                    case 7: alpha = _loadedTexture_7[relPos].r; break;
+                    case 8: alpha = _loadedTexture_8[relPos].r; break;
+                    case 9: alpha = _loadedTexture_9[relPos].r; break;
                 }
 
                 if (alpha > 0.0f)

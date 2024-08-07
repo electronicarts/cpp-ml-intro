@@ -12,7 +12,7 @@
 #include <direct.h>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "../stb/stb_image_write.h"
+#include "../Demo/mnist/DX12Utils/stb/stb_image_write.h"
 
 typedef std::vector<uint8_t> Bytes;
 

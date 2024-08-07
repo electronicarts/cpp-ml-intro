@@ -18,15 +18,14 @@
 #include "mnist/public/technique.h"
 #include "mnist/public/imgui.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "../stb/stb_image.h"
+#include "mnist/DX12Utils/stb/stb_image.h"
 
 // Note: this being true can cause crashes in nsight (nsight says so on startup)
 #define BREAK_ON_DX12_ERROR() _DEBUG
 
 static unsigned int c_width = 1280;
 static unsigned int c_height = 1000;
-static const wchar_t* c_windowTitle = L"MNIST Neural Network Demo";
+static const char* c_windowTitle = "MNIST Neural Network Demo";
 static const bool g_useWarpDevice = false;
 static const UINT FrameCount = 2;
 static const bool c_enableGPUBasedValidation = false;
@@ -235,7 +234,7 @@ struct DX12Data
             if (!m_mnist->m_input.buffer_NN_Weights)
             {
                 std::vector<char> weights = LoadBinaryFileIntoMemory("mnist/assets/Backprop_Weights.bin");
-                m_mnist->m_input.buffer_NN_Weights = m_mnist->CreateManagedBuffer(m_device, (unsigned int)weights.size(), m_mnist->m_input.c_buffer_NN_Weights_flags, D3D12_RESOURCE_STATE_COMMON, D3D12_HEAP_TYPE_DEFAULT, m_commandList, weights.data(), L"MNIST NNWeights");
+                m_mnist->m_input.buffer_NN_Weights = m_mnist->CreateManagedBuffer(m_device, m_commandList, m_mnist->m_input.c_buffer_NN_Weights_flags, weights.data(), (unsigned int)weights.size(), L"MNIST NNWeights", D3D12_RESOURCE_STATE_COMMON);
                 m_mnist->m_input.buffer_NN_Weights_format = DXGI_FORMAT_R32_FLOAT;
                 m_mnist->m_input.buffer_NN_Weights_stride = 0;
                 m_mnist->m_input.buffer_NN_Weights_count = (unsigned int)(weights.size() / sizeof(float));
@@ -246,7 +245,7 @@ struct DX12Data
             if (!m_mnist->m_input.texture_Imported_Image)
             {
                 static const unsigned int c_size[2] = { 28, 28 };
-                m_mnist->m_input.texture_Imported_Image = m_mnist->CreateManagedTexture2D(m_device, c_size, DXGI_FORMAT_R8_UNORM, m_mnist->m_input.texture_Imported_Image_flags, D3D12_RESOURCE_STATE_COMMON, m_commandList, nullptr, 0, L"MNIST Imported Image");
+                m_mnist->m_input.texture_Imported_Image = m_mnist->CreateManagedTexture(m_device, m_commandList, m_mnist->m_input.texture_Imported_Image_flags, DXGI_FORMAT_R8_UNORM, c_size, 1, DX12Utils::ResourceType::Texture2D, nullptr, L"MNIST Imported Image", D3D12_RESOURCE_STATE_COMMON);
                 m_mnist->m_input.texture_Imported_Image_size[0] = 28;
                 m_mnist->m_input.texture_Imported_Image_size[1] = 28;
                 m_mnist->m_input.texture_Imported_Image_size[2] = 1;
@@ -635,58 +634,14 @@ struct DX12Data
         }
     }
 
-    template <typename T>
-    static std::string GetAssetPath();
-
-    template <>
-    static std::string GetAssetPath<mnist::LoadTextureData>()
-    {
-        return "mnist/assets/";
-    }
-
-    template <typename T>
-    static bool GigiLoadTexture(T& data)
-    {
-        std::string fullFileName = GetAssetPath<T>() + data.fileName;
-
-        std::string extension;
-        size_t extensionStart = fullFileName.find_last_of(".");
-        if (extensionStart != std::string::npos)
-            extension = fullFileName.substr(extensionStart);
-        if (extension == ".hdr")
-        {
-            int c;
-            float* pixels = stbi_loadf(fullFileName.c_str(), &data.width, &data.height, &c, data.numChannels);
-            if (!pixels)
-                return false;
-
-            data.pixelsF32.resize(data.width * data.height * data.numChannels);
-            memcpy(data.pixelsF32.data(), pixels, data.pixelsF32.size() * sizeof(float));
-            stbi_image_free(pixels);
-        }
-        else
-        {
-            int c;
-            unsigned char* pixels = stbi_load(fullFileName.c_str(), &data.width, &data.height, &c, data.numChannels);
-            if (!pixels)
-                return false;
-
-            data.pixelsU8.resize(data.width * data.height * data.numChannels);
-            memcpy(data.pixelsU8.data(), pixels, data.pixelsU8.size());
-            stbi_image_free(pixels);
-        }
-
-        return true;
-    }
-
-    static void GigiLogFn(int level, const char* msg, ...)
+    static void GigiLogFn(LogLevel level, const char* msg, ...)
     {
         static std::vector<char> buffer(40960);
         va_list args;
         va_start(args, msg);
         vsprintf_s(buffer.data(), buffer.size(), msg, args);
         va_end(args);
-        if (level >= 2)
+        if (level == LogLevel::Error)
             Assert(false, "Gigi: %s", buffer.data());
     }
 
@@ -711,7 +666,6 @@ struct DX12Data
 
         // Set the logging function, perf marker functions, and shader locations, and create the technique contexts
         mnist::Context::LogFn = &GigiLogFn;
-        mnist::Context::LoadTextureFn = &GigiLoadTexture<mnist::LoadTextureData>;
         mnist::Context::s_techniqueLocation = L"mnist/";
         m_mnist = mnist::CreateContext(m_device);
         Assert(m_mnist != nullptr, "Could not create mnist context");
@@ -834,7 +788,7 @@ void InitializeGraphics()
     windowClass.lpfnWndProc = WindowProc;
     windowClass.hInstance = s_hInstance;
     windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-    windowClass.lpszClassName = L"MNISTNN";
+    windowClass.lpszClassName = "MNISTNN";
     RegisterClassEx(&windowClass);
 
     RECT windowRect = { 0, 0, (LONG)c_width, (LONG)c_height };

@@ -8,6 +8,8 @@
 #include <d3d12.h>
 #include <array>
 #include <vector>
+#include <unordered_map>
+#include "DX12Utils/dxutils.h"
 
 namespace mnist
 {
@@ -44,27 +46,28 @@ namespace mnist
         struct Struct__DrawCB
         {
             unsigned int Clear = false;
-            float PenSize = 10.0f;
-            float2 _padding0 = {};  // Padding
+            float3 _padding0 = {};  // Padding
             float4 MouseState = {0.0f, 0.0f, 0.0f, 0.0f};
-            int iFrame = 0;
-            unsigned int UseImportedImage = false;
-            float2 _padding1 = {};  // Padding
             float4 MouseStateLastFrame = {0.0f, 0.0f, 0.0f, 0.0f};
+            float PenSize = 10.000000f;
+            unsigned int UseImportedImage = false;
+            int iFrame = 0;
+            float _padding1 = 0.000000f;  // Padding
         };
 
         struct Struct__ShrinkCB
         {
-            unsigned int UseImportedImage = false;
             unsigned int NormalizeDrawing = true;  // MNIST normalization: shrink image to 20x20 and put center of mass in the middle of a 28x28 image
+            unsigned int UseImportedImage = false;
+            float2 _padding0 = {};  // Padding
         };
 
         struct Struct__PresentationCB
         {
-            float PenSize = 10.0f;
-            float3 _padding0 = {};  // Padding
             float4 MouseState = {0.0f, 0.0f, 0.0f, 0.0f};
+            float PenSize = 10.000000f;
             unsigned int UseImportedImage = false;
+            float2 _padding0 = {};  // Padding
         };
 
         // Variables
@@ -75,15 +78,18 @@ namespace mnist
         static const int variable_c_numOutputWeights;  // (c_numHiddenNeurons + 1) * c_numOutputNeurons
         static const uint2 variable_c_NNInputImageSize;
         static const uint2 variable_c_drawingCanvasSize;
+        bool variable_initialized = false;
 
         ID3D12Resource* texture_Drawing_Canvas = nullptr;
         unsigned int texture_Drawing_Canvas_size[3] = { 0, 0, 0 };
+        unsigned int texture_Drawing_Canvas_numMips = 0;
         DXGI_FORMAT texture_Drawing_Canvas_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture_Drawing_Canvas_flags =  D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
         const D3D12_RESOURCE_STATES c_texture_Drawing_Canvas_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture_NN_Input = nullptr;
         unsigned int texture_NN_Input_size[3] = { 0, 0, 0 };
+        unsigned int texture_NN_Input_numMips = 0;
         DXGI_FORMAT texture_NN_Input_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture_NN_Input_flags =  D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
         const D3D12_RESOURCE_STATES c_texture_NN_Input_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
@@ -135,66 +141,77 @@ namespace mnist
 
         ID3D12Resource* texture__loadedTexture_0 = nullptr;
         unsigned int texture__loadedTexture_0_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_0_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_0_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_0_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_0_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_1 = nullptr;
         unsigned int texture__loadedTexture_1_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_1_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_1_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_1_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_1_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_2 = nullptr;
         unsigned int texture__loadedTexture_2_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_2_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_2_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_2_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_2_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_3 = nullptr;
         unsigned int texture__loadedTexture_3_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_3_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_3_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_3_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_3_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_4 = nullptr;
         unsigned int texture__loadedTexture_4_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_4_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_4_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_4_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_4_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_5 = nullptr;
         unsigned int texture__loadedTexture_5_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_5_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_5_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_5_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_5_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_6 = nullptr;
         unsigned int texture__loadedTexture_6_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_6_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_6_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_6_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_6_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_7 = nullptr;
         unsigned int texture__loadedTexture_7_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_7_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_7_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_7_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_7_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_8 = nullptr;
         unsigned int texture__loadedTexture_8_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_8_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_8_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_8_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_8_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_9 = nullptr;
         unsigned int texture__loadedTexture_9_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_9_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_9_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_9_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_9_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
 
         ID3D12Resource* texture__loadedTexture_10 = nullptr;
         unsigned int texture__loadedTexture_10_size[3] = { 0, 0, 0 };
+        unsigned int texture__loadedTexture_10_numMips = 0;
         DXGI_FORMAT texture__loadedTexture_10_format = DXGI_FORMAT_UNKNOWN;
         static const D3D12_RESOURCE_FLAGS texture__loadedTexture_10_flags =  D3D12_RESOURCE_FLAG_NONE;
         const D3D12_RESOURCE_STATES c_texture__loadedTexture_10_endingState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE;
@@ -205,7 +222,10 @@ namespace mnist
         static ID3D12PipelineState* computeShader_Presentation_pso;
         static ID3D12RootSignature* computeShader_Presentation_rootSig;
 
-        // Created for the host when asked, freed on shutdown.
+        std::unordered_map<DX12Utils::SubResourceHeapAllocationInfo, int, DX12Utils::SubResourceHeapAllocationInfo> m_RTVCache;
+        std::unordered_map<DX12Utils::SubResourceHeapAllocationInfo, int, DX12Utils::SubResourceHeapAllocationInfo> m_DSVCache;
+
+        // Freed on destruction of the context
         std::vector<ID3D12Resource*> m_managedResources;
     };
 };

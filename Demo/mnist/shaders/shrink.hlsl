@@ -15,15 +15,18 @@ struct Struct_DrawExtents
 
 struct Struct__ShrinkCB
 {
-    uint UseImportedImage;
     uint NormalizeDrawing;
+    uint UseImportedImage;
+    float2 _padding0;
 };
 
 Texture2D<float> Canvas : register(t0);
 StructuredBuffer<Struct_DrawExtents> DrawExtents : register(t1);
 RWTexture2D<float> NNInput : register(u0);
 Texture2D<float> ImportedImage : register(t2);
-ConstantBuffer<Struct__ShrinkCB> _cb : register(b0);
+ConstantBuffer<Struct__ShrinkCB> _ShrinkCB : register(b0);
+
+#line 1
 
 
 static const uint2 c_drawingCanvasSize = uint2(256, 256);
@@ -92,11 +95,12 @@ void ShrinkNormalize(uint2 pixelPos)
 }
 
 [numthreads(8, 8, 1)]
+#line 68
 void Shrink(uint3 DTid : SV_DispatchThreadID)
 {
-    if (_cb.UseImportedImage)
+    if (_ShrinkCB.UseImportedImage)
         NNInput[DTid.xy] = ImportedImage[DTid.xy];
-    else if (_cb.NormalizeDrawing)
+    else if (_ShrinkCB.NormalizeDrawing)
         ShrinkNormalize(DTid.xy);
     else
         Shrink(DTid.xy);

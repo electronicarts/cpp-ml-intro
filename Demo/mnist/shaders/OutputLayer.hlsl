@@ -7,8 +7,11 @@ Buffer<float> NNWeights : register(t0);
 Buffer<float> HiddenLayerActivations : register(t1);
 RWBuffer<float> OutputLayerActivations : register(u0);
 
+#line 1
+
 
 [numthreads(64, 1, 1)]
+#line 3
 void OutputLayer(uint3 DTid : SV_DispatchThreadID)
 {
     int outputNeuronIndex = DTid.x;

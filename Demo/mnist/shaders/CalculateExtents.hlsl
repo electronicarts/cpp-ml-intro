@@ -16,8 +16,11 @@ struct Struct_DrawExtents
 Texture2D<float> Canvas : register(t0);
 RWStructuredBuffer<Struct_DrawExtents> DrawExtents : register(u0);
 
+#line 1
+
 
 [numthreads(8, 8, 1)]
+#line 3
 void CalculateExtents(uint3 DTid : SV_DispatchThreadID)
 {
 	if (Canvas[DTid.xy] == 0.0f)

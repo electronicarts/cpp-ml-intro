@@ -1,0 +1,11 @@
+{
+    "Title":"Machina2023",
+    "Description":"Recognizes what number you draw. Machine learning inference in compute shaders. Part of a tutorial on machine learning in C++ for game developers.",
+    "Author":"Demofox",
+    "Tags":"ML,inference",
+    "Technique": "mnist.gg",
+    "Website": "https://github.com/electronicarts/cpp-ml-intro",
+    "Screenshot":"Screenshot.png",
+    "License":"LICENSE.txt",
+    "GigiVersion":"0.99b",
+}

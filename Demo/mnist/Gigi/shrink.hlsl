@@ -3,10 +3,10 @@
 static const uint2 c_drawingCanvasSize = uint2/*$(Variable:c_drawingCanvasSize)*/;
 static const uint2 c_NNInputImageSize = uint2/*$(Variable:c_NNInputImageSize)*/;
 
-void Shrink(uint2 pixelPos)
+void ShrinkFn(uint2 pixelPos)
 {
-    uint2 sourcePixelMin = float2(pixelPos) * float2(c_drawingCanvasSize) / float2(c_NNInputImageSize);
-    uint2 sourcePixelMax = float2(pixelPos + uint2(1, 1)) * float2(c_drawingCanvasSize) / float2(c_NNInputImageSize);
+    uint2 sourcePixelMin = uint2(float2(pixelPos) * float2(c_drawingCanvasSize) / float2(c_NNInputImageSize));
+    uint2 sourcePixelMax = uint2(float2(pixelPos + uint2(1, 1)) * float2(c_drawingCanvasSize) / float2(c_NNInputImageSize));
 
     float count = (sourcePixelMax.x - sourcePixelMin.x) * (sourcePixelMax.y - sourcePixelMin.y);
     float ooCount = 1.0f / float(count);
@@ -52,8 +52,8 @@ void ShrinkNormalize(uint2 pixelPos)
     //drawCenterOfMassOffset = drawCenterOfMassOffset / 2;
     int2 drawCenterOfMassOffset = int2(0, 0);
 
-    uint2 sourcePixelMin = float2(int2(drawMin)-drawCenterOfMassOffset)+float2(int2(pixelPos)-offset) * float2(drawSize) / float2(normalizedImageSize);
-    uint2 sourcePixelMax = float2(int2(drawMin)-drawCenterOfMassOffset)+float2(int2(pixelPos)-offset + int2(1, 1)) * float2(drawSize) / float2(normalizedImageSize);
+    uint2 sourcePixelMin = uint2(float2(int2(drawMin)-drawCenterOfMassOffset)+float2(int2(pixelPos)-offset) * float2(drawSize) / float2(normalizedImageSize));
+    uint2 sourcePixelMax = uint2(float2(int2(drawMin)-drawCenterOfMassOffset)+float2(int2(pixelPos)-offset + int2(1, 1)) * float2(drawSize) / float2(normalizedImageSize));
 
     float count = (sourcePixelMax.x - sourcePixelMin.x) * (sourcePixelMax.y - sourcePixelMin.y);
     float ooCount = 1.0f / float(count);
@@ -67,10 +67,10 @@ void ShrinkNormalize(uint2 pixelPos)
 
 /*$(_compute:Shrink)*/(uint3 DTid : SV_DispatchThreadID)
 {
-    if (/*$(Variable:UseImportedImage)*/)
+    if ((bool)/*$(Variable:UseImportedImage)*/)
         NNInput[DTid.xy] = ImportedImage[DTid.xy];
-    else if (/*$(Variable:NormalizeDrawing)*/)
+    else if ((bool)/*$(Variable:NormalizeDrawing)*/)
         ShrinkNormalize(DTid.xy);
     else
-        Shrink(DTid.xy);
+        ShrinkFn(DTid.xy);
 }

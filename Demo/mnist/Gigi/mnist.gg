@@ -1,7 +1,7 @@
 {
     "$schema": "gigischema.json",
     "name": "mnist",
-    "version": "0.99b",
+    "version": "1.0",
     "variables": [
         {
             "name": "Clear",
@@ -223,11 +223,6 @@
             "name": "Hidden Layer",
             "fileName": "HiddenLayer.hlsl",
             "entryPoint": "HiddenLayer",
-            "CSNumThreads": [
-                64,
-                1,
-                1
-            ],
             "NumThreads": [
                 64,
                 1,
@@ -263,17 +258,17 @@
                         "PODAsStructuredBuffer": false
                     }
                 }
+            ],
+            "CSNumThreads": [
+                64,
+                1,
+                1
             ]
         },
         {
             "name": "Output Layer",
             "fileName": "OutputLayer.hlsl",
             "entryPoint": "OutputLayer",
-            "CSNumThreads": [
-                64,
-                1,
-                1
-            ],
             "NumThreads": [
                 64,
                 1,
@@ -307,6 +302,11 @@
                         "PODAsStructuredBuffer": false
                     }
                 }
+            ],
+            "CSNumThreads": [
+                64,
+                1,
+                1
             ]
         },
         {
@@ -504,7 +504,7 @@
                 ],
                 "transient": false,
                 "format": {
-                    "format": "R8_Unorm"
+                    "format": "R32_Float"
                 },
                 "size": {
                     "variable": {
@@ -534,6 +534,11 @@
                         "dstPin": "Canvas"
                     },
                     {
+                        "srcPin": "DrawExtents",
+                        "dstNode": "CalculateExtents",
+                        "dstPin": "DrawExtents"
+                    },
+                    {
                         "srcPin": "NNInput",
                         "dstNode": "NN Input",
                         "dstPin": "resource"
@@ -542,11 +547,6 @@
                         "srcPin": "ImportedImage",
                         "dstNode": "Imported Image",
                         "dstPin": "resource"
-                    },
-                    {
-                        "srcPin": "DrawExtents",
-                        "dstNode": "CalculateExtents",
-                        "dstPin": "DrawExtents"
                     }
                 ],
                 "shader": {
@@ -570,7 +570,7 @@
                     274.0
                 ],
                 "format": {
-                    "format": "R8_Unorm"
+                    "format": "R32_Float"
                 },
                 "size": {
                     "multiply": [
@@ -656,14 +656,14 @@
                 ],
                 "connections": [
                     {
-                        "srcPin": "HiddenLayerActivations",
-                        "dstNode": "Hidden Layer",
-                        "dstPin": "HiddenLayerActivations"
-                    },
-                    {
                         "srcPin": "NNWeights",
                         "dstNode": "Hidden Layer",
                         "dstPin": "NNWeights"
+                    },
+                    {
+                        "srcPin": "HiddenLayerActivations",
+                        "dstNode": "Hidden Layer",
+                        "dstPin": "HiddenLayerActivations"
                     },
                     {
                         "srcPin": "OutputLayerActivations",
@@ -718,21 +718,6 @@
                 ],
                 "connections": [
                     {
-                        "srcPin": "OutputLayerActivations",
-                        "dstNode": "Output Layer",
-                        "dstPin": "OutputLayerActivations"
-                    },
-                    {
-                        "srcPin": "HiddenLayerActivations",
-                        "dstNode": "Output Layer",
-                        "dstPin": "HiddenLayerActivations"
-                    },
-                    {
-                        "srcPin": "PresentationCanvas",
-                        "dstNode": "Presentation Canvas",
-                        "dstPin": "resource"
-                    },
-                    {
                         "srcPin": "DrawCanvas",
                         "dstNode": "Shrink",
                         "dstPin": "Canvas"
@@ -741,6 +726,21 @@
                         "srcPin": "NNInput",
                         "dstNode": "Hidden Layer",
                         "dstPin": "NNInput"
+                    },
+                    {
+                        "srcPin": "HiddenLayerActivations",
+                        "dstNode": "Output Layer",
+                        "dstPin": "HiddenLayerActivations"
+                    },
+                    {
+                        "srcPin": "OutputLayerActivations",
+                        "dstNode": "Output Layer",
+                        "dstPin": "OutputLayerActivations"
+                    },
+                    {
+                        "srcPin": "PresentationCanvas",
+                        "dstNode": "Presentation Canvas",
+                        "dstPin": "resource"
                     }
                 ],
                 "shader": {
@@ -763,7 +763,17 @@
                     1148.0,
                     370.0
                 ],
-                "visibility": "Imported"
+                "visibility": "Exported",
+                "format": {
+                    "format": "RGBA8_Unorm_sRGB"
+                },
+                "size": {
+                    "multiply": [
+                        480,
+                        990,
+                        1
+                    ]
+                }
             }
         },
         {
@@ -867,5 +877,8 @@
             "shaderModelVs": "vs_5_1",
             "shaderModelPs": "ps_5_1"
         }
+    },
+    "PrimaryOutput": {
+        "name": "Presentation Canvas"
     }
 }

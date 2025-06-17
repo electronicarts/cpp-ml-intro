@@ -28,17 +28,6 @@
                     "fileName": "Backprop_Weights.bin",
                     "type": "Float"
                 }
-            },
-            {
-                "nodeName": "Presentation_Canvas",
-                "texture": {
-                    "size": [
-                        480,
-                        990,
-                        1
-                    ],
-                    "format": "RGBA8_Unorm"
-                }
             }
         ],
         "savedVariables": [

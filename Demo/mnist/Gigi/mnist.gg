@@ -146,8 +146,8 @@
             "resources": [
                 {
                     "name": "Canvas",
-                    "type": "Texture",
                     "access": "UAV",
+                    "type": "Texture",
                     "buffer": {
                         "PODAsStructuredBuffer": false
                     },
@@ -157,8 +157,8 @@
                 },
                 {
                     "name": "DrawExtents",
-                    "type": "Buffer",
                     "access": "UAV",
+                    "type": "Buffer",
                     "buffer": {
                         "typeStruct": {
                             "name": "DrawExtents"
@@ -175,8 +175,8 @@
             "resources": [
                 {
                     "name": "Canvas",
-                    "type": "Texture",
                     "access": "SRV",
+                    "type": "Texture",
                     "buffer": {
                         "PODAsStructuredBuffer": false
                     },
@@ -186,8 +186,8 @@
                 },
                 {
                     "name": "DrawExtents",
-                    "type": "Buffer",
                     "access": "SRV",
+                    "type": "Buffer",
                     "buffer": {
                         "typeStruct": {
                             "name": "DrawExtents"
@@ -197,8 +197,8 @@
                 },
                 {
                     "name": "NNInput",
-                    "type": "Texture",
                     "access": "UAV",
+                    "type": "Texture",
                     "buffer": {
                         "PODAsStructuredBuffer": false
                     },
@@ -208,8 +208,8 @@
                 },
                 {
                     "name": "ImportedImage",
-                    "type": "Texture",
                     "access": "SRV",
+                    "type": "Texture",
                     "buffer": {
                         "PODAsStructuredBuffer": false
                     },
@@ -231,8 +231,8 @@
             "resources": [
                 {
                     "name": "NNInput",
-                    "type": "Texture",
                     "access": "SRV",
+                    "type": "Texture",
                     "buffer": {
                         "PODAsStructuredBuffer": false
                     },
@@ -242,8 +242,8 @@
                 },
                 {
                     "name": "NNWeights",
-                    "type": "Buffer",
                     "access": "SRV",
+                    "type": "Buffer",
                     "buffer": {
                         "type": "Float",
                         "PODAsStructuredBuffer": false
@@ -251,8 +251,8 @@
                 },
                 {
                     "name": "HiddenLayerActivations",
-                    "type": "Buffer",
                     "access": "UAV",
+                    "type": "Buffer",
                     "buffer": {
                         "type": "Float",
                         "PODAsStructuredBuffer": false
@@ -277,8 +277,8 @@
             "resources": [
                 {
                     "name": "NNWeights",
-                    "type": "Buffer",
                     "access": "SRV",
+                    "type": "Buffer",
                     "buffer": {
                         "type": "Float",
                         "PODAsStructuredBuffer": false
@@ -286,8 +286,8 @@
                 },
                 {
                     "name": "HiddenLayerActivations",
-                    "type": "Buffer",
                     "access": "SRV",
+                    "type": "Buffer",
                     "buffer": {
                         "type": "Float",
                         "PODAsStructuredBuffer": false
@@ -295,8 +295,8 @@
                 },
                 {
                     "name": "OutputLayerActivations",
-                    "type": "Buffer",
                     "access": "UAV",
+                    "type": "Buffer",
                     "buffer": {
                         "type": "Float",
                         "PODAsStructuredBuffer": false
@@ -316,8 +316,8 @@
             "resources": [
                 {
                     "name": "DrawCanvas",
-                    "type": "Texture",
                     "access": "SRV",
+                    "type": "Texture",
                     "buffer": {
                         "PODAsStructuredBuffer": false
                     },
@@ -327,8 +327,8 @@
                 },
                 {
                     "name": "NNInput",
-                    "type": "Texture",
                     "access": "SRV",
+                    "type": "Texture",
                     "buffer": {
                         "PODAsStructuredBuffer": false
                     },
@@ -338,8 +338,8 @@
                 },
                 {
                     "name": "HiddenLayerActivations",
-                    "type": "Buffer",
                     "access": "SRV",
+                    "type": "Buffer",
                     "buffer": {
                         "type": "Float",
                         "PODAsStructuredBuffer": false
@@ -347,8 +347,8 @@
                 },
                 {
                     "name": "OutputLayerActivations",
-                    "type": "Buffer",
                     "access": "SRV",
+                    "type": "Buffer",
                     "buffer": {
                         "type": "Float",
                         "PODAsStructuredBuffer": false
@@ -359,8 +359,8 @@
                 },
                 {
                     "name": "PresentationCanvas",
-                    "type": "Texture",
                     "access": "UAV",
+                    "type": "Texture",
                     "buffer": {
                         "PODAsStructuredBuffer": false
                     }
@@ -374,8 +374,8 @@
             "resources": [
                 {
                     "name": "Canvas",
-                    "type": "Texture",
                     "access": "SRV",
+                    "type": "Texture",
                     "buffer": {
                         "PODAsStructuredBuffer": false
                     },
@@ -385,8 +385,8 @@
                 },
                 {
                     "name": "DrawExtents",
-                    "type": "Buffer",
                     "access": "UAV",
+                    "type": "Buffer",
                     "buffer": {
                         "typeStruct": {
                             "name": "DrawExtents"
@@ -876,6 +876,11 @@
             "shaderModelCs": "cs_5_1",
             "shaderModelVs": "vs_5_1",
             "shaderModelPs": "ps_5_1"
+        },
+        "webGPU": {
+            "features": {
+                "float32Filterable": true
+            }
         }
     },
     "PrimaryOutput": {

@@ -1,5 +1,7 @@
 # CPPMLBasics
 
+See the trained network in action in your browser using WebGPU. Draw a digit and it will tell you what number it think you drew, in real time: https://electronicarts.github.io/gigi/Demos/mnist/index.html
+
 The code repo to go with the blog posts and YouTube video:
 1. Blog Part I: https://www.ea.com/seed/news/machine-learning-game-devs-part-1
 2. Blog Part II: https://www.ea.com/seed/news/machine-learning-game-devs-part-2
